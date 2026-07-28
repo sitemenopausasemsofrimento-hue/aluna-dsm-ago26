@@ -41,7 +41,11 @@
   .btn-laranja:hover{background:#D4731F;transform:translateY(-2px)}
 
   /* CONTAGEM REGRESSIVA */
-  .contagem{background:#C0392B;color:#FFFFFF;text-align:center;padding:12px 16px;font-weight:700;font-size:14px;letter-spacing:2px;text-transform:uppercase}
+  .contagem{position:sticky;top:0;z-index:999;background:linear-gradient(90deg,#7A1F2F,#C0392B,#7A1F2F);color:#FFFFFF;text-align:center;padding:11px 16px;font-weight:700;font-size:14px;letter-spacing:2px;text-transform:uppercase;box-shadow:0 3px 14px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;gap:10px}
+  .contagem .pulso{width:10px;height:10px;background:#FFD34D;border-radius:50%;animation:pulsar 1.2s ease-in-out infinite;flex:0 0 auto}
+  .contagem b{color:#FFD34D;font-weight:700}
+  @keyframes pulsar{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.55}}
+  @media(max-width:600px){.contagem{font-size:12px;letter-spacing:1.2px;padding:10px 12px}}
 
   /* HERO — faixa compacta com foto */
   .hero{background:var(--verde-escuro);color:var(--branco);padding:44px 22px 40px;position:relative;overflow:hidden}
@@ -91,7 +95,8 @@
 
   /* TAREFAS */
   .tarefas{list-style:none;margin:28px 0;text-align:left}
-  .tarefas li{display:flex;gap:18px;align-items:flex-start;background:var(--branco);border-radius:10px;padding:20px 24px;margin-bottom:14px;box-shadow:0 2px 10px rgba(74,20,40,.06)}
+  .tarefas li{display:flex;gap:18px;align-items:flex-start;background:var(--branco);border-radius:10px;padding:20px 24px;margin-bottom:14px;box-shadow:0 2px 10px rgba(74,20,40,.06);color:var(--texto)}
+  .tarefas li strong{color:var(--verde-profundo)}
   .tarefas .num{flex:0 0 38px;height:38px;border:2px solid var(--verde-medio);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;color:var(--verde-medio);font-size:17px}
   .frase-ancora{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(18px,3.4vw,22px);background:var(--verde-escuro);color:var(--branco);border-radius:10px;padding:28px 30px;margin:30px auto;max-width:640px;line-height:1.5}
 
@@ -154,7 +159,7 @@
 <body>
 
 <!-- CONTAGEM REGRESSIVA -->
-<div class="contagem" id="contagem"></div>
+<div class="contagem"><span class="pulso"></span><span id="contagem"></span></div>
 
 <!-- DOBRA 1 · BOAS-VINDAS -->
 <header class="hero">
@@ -200,7 +205,7 @@
       <li><span class="num">2</span><span><strong>Shot da manhã em jejum</strong>: 300 ml de água filtrada + meio limão espremido + uma pitada de sal integral.</span></li>
       <li><span class="num">3</span><span>Tire <strong>1 carboidrato de uma refeição</strong>. Só um, do seu jeito.</span></li>
       <li><span class="num">4</span><span><strong>Jejum de 14 horas</strong>: pare de comer às 18h e volte às 8h da manhã.</span></li>
-      <li><span class="num">5</span><span><strong>Mais proteína nas refeições</strong>: ovo, tofu ou grão-de-bico no café; carne, peixe ou proteína vegetal no almoço e no jantar.</span></li>
+      <li><span class="num">5</span><span><strong>Mais proteína nas refeições</strong>: ovo, queijo minas frescal, requeijão em barra ou grão-de-bico no café; carne, peixe ou proteína vegetal no almoço e no jantar.</span></li>
     </ul>
 
     <p class="lead">No manual está tudo com as medidas certinhas: a rotina completa, o cardápio, as substituições e a lista de compras.</p>
@@ -374,19 +379,38 @@
       var libera = new Date(item.getAttribute('data-libera'));
       if(agora < libera){ item.classList.add('bloqueado'); }
     });
-    // Contagem regressiva
+    // Contagem regressiva dinâmica
     var faixa = document.getElementById('contagem');
     if(faixa){
       var inicio = new Date('2026-08-03T07:00:00-03:00');
       var fimDesafio = new Date('2026-08-06T23:59:59-03:00');
-      var diaAula = new Date('2026-08-03T00:00:00-03:00');
-      if(agora < diaAula){
-        var dias = Math.ceil((diaAula - agora) / 86400000);
-        faixa.textContent = dias === 1 ? 'FALTA 1 DIA PARA O DESAFIO COMEÇAR' : 'FALTAM ' + dias + ' DIAS PARA O DESAFIO COMEÇAR';
-      } else if(agora <= fimDesafio){
-        faixa.textContent = agora < inicio ? 'É HOJE · AULA ÀS 7H DA MANHÃ' : 'AULA HOJE ÀS 7H DA MANHÃ';
-      } else {
-        faixa.textContent = 'APROVEITE · ESTA PÁGINA SAI DO AR EM 14/08';
+      function atualizaContagem(){
+        var t = new Date();
+        if(t < inicio){
+          var resta = inicio - t;
+          var dias = Math.floor(resta / 86400000);
+          var horas = Math.floor((resta % 86400000) / 3600000);
+          var min = Math.floor((resta % 3600000) / 60000);
+          if(dias > 0){
+            faixa.innerHTML = (dias === 1 ? 'FALTA <b>1 DIA</b>' : 'FALTAM <b>' + dias + ' DIAS</b>') + ' · <b>' + horas + 'H ' + (min<10?'0':'') + min + 'MIN</b> PARA O DESAFIO';
+          } else {
+            faixa.innerHTML = 'É HOJE! A AULA COMEÇA EM <b>' + horas + 'H ' + (min<10?'0':'') + min + 'MIN</b>';
+          }
+        } else if(t <= fimDesafio){
+          faixa.innerHTML = 'DESAFIO NO AR · <b>AULA HOJE ÀS 7H DA MANHÃ</b>';
+        } else {
+          faixa.innerHTML = 'APROVEITE · ESTA PÁGINA SAI DO AR EM <b>14/08</b>';
+        }
+      }
+      atualizaContagem();
+      setInterval(atualizaContagem, 30000);
+    }
+    // Modo desafio: a partir de 03/08, a Semana do Protocolo sobe pra logo abaixo do topo
+    if(agora >= new Date('2026-08-03T00:00:00-03:00')){
+      var aulasSec = document.getElementById('aulas');
+      var hero = document.querySelector('.hero');
+      if(aulasSec && hero && hero.parentNode){
+        hero.parentNode.insertBefore(aulasSec, hero.nextSibling);
       }
     }
   })();
