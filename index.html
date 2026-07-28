@@ -40,6 +40,9 @@
   .btn-laranja{background:var(--laranja);color:#FFFFFF}
   .btn-laranja:hover{background:#D4731F;transform:translateY(-2px)}
 
+  /* CONTAGEM REGRESSIVA */
+  .contagem{background:#C0392B;color:#FFFFFF;text-align:center;padding:12px 16px;font-weight:700;font-size:14px;letter-spacing:2px;text-transform:uppercase}
+
   /* HERO — faixa compacta com foto */
   .hero{background:var(--verde-escuro);color:var(--branco);padding:44px 22px 40px;position:relative;overflow:hidden}
   .hero::before{content:"DSM";position:absolute;top:50%;left:38%;transform:translate(-50%,-50%);font-family:'Playfair Display',serif;font-size:230px;font-weight:700;color:rgba(255,255,255,.05);pointer-events:none;line-height:1;letter-spacing:8px}
@@ -150,6 +153,9 @@
 </head>
 <body>
 
+<!-- CONTAGEM REGRESSIVA -->
+<div class="contagem" id="contagem"></div>
+
 <!-- DOBRA 1 · BOAS-VINDAS -->
 <header class="hero">
   <div class="hero-inner">
@@ -176,36 +182,28 @@
   </div>
 </section>
 
-<!-- DOBRA 3 · AULA DE PREPARAÇÃO -->
-<section class="sec-clara">
-  <div class="container centro">
-    <div class="kicker">Passo 2 · Comece por aqui</div>
-    <h2 class="sec-titulo">Aula de Preparação</h2>
-    <p class="lead">O Dr. Pedro explica como funciona o desafio e as <strong>3 tarefas que já começam a desinflamar o seu corpo</strong> antes do primeiro encontro.</p>
-    <a class="thumb-link" href="https://youtu.be/Vr1LBAulfBA" target="_blank" rel="noopener" aria-label="Assistir Aula de Preparação no YouTube">
-      <img src="https://img.youtube.com/vi/Vr1LBAulfBA/hqdefault.jpg" alt="Aula de Preparação com o Dr. Pedro" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/Vr1LBAulfBA/mqdefault.jpg'">
-      <span class="play"></span>
-    </a>
-    <ul class="tarefas">
-      <li><span class="num">1</span><span>Apenas <strong>3 refeições por dia</strong>. Café da manhã, almoço e jantar. Nada de beliscar entre elas.</span></li>
-      <li><span class="num">2</span><span>Beba <strong>300 ml de água em jejum</strong> ao acordar.</span></li>
-      <li><span class="num">3</span><span>Reduza o carboidrato em <strong>1 refeição</strong>. Só uma, do seu jeito.</span></li>
-    </ul>
-  </div>
-</section>
-
-<!-- DOBRA 4 · MANUAL -->
+<!-- DOBRA 3 · PREPARAÇÃO + MANUAL (unificada) -->
 <section class="sec-escura">
   <div class="container centro">
-    <div class="kicker">Passo 3</div>
-    <h2 class="sec-titulo">Manual do Desafio</h2>
-    <p class="lead">O combinado da semana: o jejum de 14 horas, a rotina diária, o cardápio com substituições e a lista de compras. Baixe agora e deixe salvo no seu celular.</p>
+    <div class="kicker">Passo 2 · Comece por aqui</div>
+    <h2 class="sec-titulo">Sua Preparação</h2>
+    <p class="lead">Assista ao vídeo do Dr. Pedro: ele explica o passo a passo da sua preparação e o combinado especial que ele quer fazer com você.</p>
 
     <a class="thumb-link" href="https://youtu.be/UEOF2u88HDs" target="_blank" rel="noopener" aria-label="Assistir o vídeo de preparação do desafio">
       <img src="https://img.youtube.com/vi/UEOF2u88HDs/hqdefault.jpg" alt="Vídeo de preparação do Desafio Seca Menopausa" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/UEOF2u88HDs/mqdefault.jpg'">
       <span class="play"></span>
     </a>
 
+    <p class="lead" style="margin-top:34px">Recapitulando: suas tarefas até o dia 3, que <strong>você já pode começar hoje</strong>:</p>
+    <ul class="tarefas">
+      <li><span class="num">1</span><span>Apenas <strong>3 refeições por dia</strong>. Café da manhã, almoço e jantar. Nada de beliscar entre elas.</span></li>
+      <li><span class="num">2</span><span><strong>Shot da manhã em jejum</strong>: 300 ml de água filtrada + meio limão espremido + uma pitada de sal integral.</span></li>
+      <li><span class="num">3</span><span>Tire <strong>1 carboidrato de uma refeição</strong>. Só um, do seu jeito.</span></li>
+      <li><span class="num">4</span><span><strong>Jejum de 14 horas</strong>: pare de comer às 18h e volte às 8h da manhã.</span></li>
+      <li><span class="num">5</span><span><strong>Mais proteína nas refeições</strong>: ovo, tofu ou grão-de-bico no café; carne, peixe ou proteína vegetal no almoço e no jantar.</span></li>
+    </ul>
+
+    <p class="lead">No manual está tudo com as medidas certinhas: a rotina completa, o cardápio, as substituições e a lista de compras.</p>
     <a class="btn btn-laranja" href="https://drive.google.com/file/d/1hlzG2tUua3Bfc6klbFaMuYS8AgQy7fDi/view?usp=drive_link" target="_blank" rel="noopener">Baixar o Manual do Desafio</a>
   </div>
 </section>
@@ -376,6 +374,21 @@
       var libera = new Date(item.getAttribute('data-libera'));
       if(agora < libera){ item.classList.add('bloqueado'); }
     });
+    // Contagem regressiva
+    var faixa = document.getElementById('contagem');
+    if(faixa){
+      var inicio = new Date('2026-08-03T07:00:00-03:00');
+      var fimDesafio = new Date('2026-08-06T23:59:59-03:00');
+      var diaAula = new Date('2026-08-03T00:00:00-03:00');
+      if(agora < diaAula){
+        var dias = Math.ceil((diaAula - agora) / 86400000);
+        faixa.textContent = dias === 1 ? 'FALTA 1 DIA PARA O DESAFIO COMEÇAR' : 'FALTAM ' + dias + ' DIAS PARA O DESAFIO COMEÇAR';
+      } else if(agora <= fimDesafio){
+        faixa.textContent = agora < inicio ? 'É HOJE · AULA ÀS 7H DA MANHÃ' : 'AULA HOJE ÀS 7H DA MANHÃ';
+      } else {
+        faixa.textContent = 'APROVEITE · ESTA PÁGINA SAI DO AR EM 14/08';
+      }
+    }
   })();
 </script>
 
