@@ -391,15 +391,20 @@
       var fimDesafio = new Date('2026-08-06T23:59:59-03:00');
       function atualizaContagem(){
         var t = new Date();
+        var diaAula = new Date('2026-08-03T00:00:00-03:00');
         if(t < inicio){
           var resta = inicio - t;
-          var dias = Math.floor(resta / 86400000);
-          var horas = Math.floor((resta % 86400000) / 3600000);
+          var horasTot = Math.floor(resta / 3600000);
           var min = Math.floor((resta % 3600000) / 60000);
-          if(dias > 0){
-            faixa.innerHTML = (dias === 1 ? 'FALTA <b>1 DIA</b>' : 'FALTAM <b>' + dias + ' DIAS</b>') + ' · <b>' + horas + 'H ' + (min<10?'0':'') + min + 'MIN</b> PARA O DESAFIO';
+          if(t >= diaAula){
+            faixa.innerHTML = 'É HOJE! A AULA COMEÇA EM <b>' + horasTot + 'H ' + (min<10?'0':'') + min + 'MIN</b>';
           } else {
-            faixa.innerHTML = 'É HOJE! A AULA COMEÇA EM <b>' + horas + 'H ' + (min<10?'0':'') + min + 'MIN</b>';
+            var diasCal = Math.ceil((diaAula - t) / 86400000);
+            if(diasCal === 1){
+              faixa.innerHTML = 'É AMANHÃ! A AULA COMEÇA EM <b>' + horasTot + 'H ' + (min<10?'0':'') + min + 'MIN</b>';
+            } else {
+              faixa.innerHTML = 'FALTAM <b>' + diasCal + ' DIAS</b> PARA O DESAFIO · COMEÇA <b>03/08 ÀS 7H</b>';
+            }
           }
         } else if(t <= fimDesafio){
           faixa.innerHTML = 'DESAFIO NO AR · <b>AULA HOJE ÀS 7H DA MANHÃ</b>';
