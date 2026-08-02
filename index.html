@@ -120,6 +120,9 @@
   .card-aula-titulo{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--verde-profundo);line-height:1.45}
   .aula-status{color:#1F8A4C}
   .card-aula .btn{padding:14px 10px;font-size:13px;margin-top:auto}
+  .btn-material{background:transparent;border:2px solid var(--verde-escuro);color:var(--verde-escuro)}
+  .btn-material:hover{background:var(--verde-escuro);color:#fff;transform:translateY(-2px)}
+  .card-aula .btn-material{margin-top:10px}
   .status-lock{display:none;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#D64545;font-weight:700;text-align:center}
   .card-aula.bloqueada .thumb-link{pointer-events:none}
   .card-aula.bloqueada .thumb-link img{filter:grayscale(1) brightness(.75)}
@@ -277,6 +280,7 @@
           <div class="card-aula-titulo">Aula 01: O Metabolismo Travado <span class="aula-status">— Aula Liberada</span></div>
           <span class="status-lock">Libera dia 03/08 às 7h</span>
           <a class="btn btn-laranja btn-aula" href="https://youtube.com/live/i_dH6RMGCfk?feature=share" target="_blank" rel="noopener">Assistir a Aula</a>
+          <a class="btn btn-material" href="material-aula-01-horarios-jejum.pdf" download data-libera-material="2026-08-03T07:00:00-03:00">Baixar Materiais da Aula</a>
         </div>
       </div>
 
@@ -290,6 +294,7 @@
           <div class="card-aula-titulo">Aula 02: O Reequilíbrio Hormonal <span class="aula-status">— Aula Liberada</span></div>
           <span class="status-lock">Libera dia 04/08 às 7h</span>
           <a class="btn btn-laranja btn-aula" href="https://youtube.com/live/BvNLOfpoPRQ?feature=share" target="_blank" rel="noopener">Assistir a Aula</a>
+          <a class="btn btn-material" href="material-aula-02-lista-exames.pdf" download data-libera-material="2026-08-04T07:00:00-03:00">Baixar Materiais da Aula</a>
         </div>
       </div>
 
@@ -405,6 +410,10 @@
       atualizaContagem();
       setInterval(atualizaContagem, 30000);
     }
+    // Materiais das aulas: aparecem só a partir das 7h do dia da aula
+    document.querySelectorAll('.btn-material[data-libera-material]').forEach(function(btn){
+      if(agora < new Date(btn.getAttribute('data-libera-material'))){ btn.style.display = 'none'; }
+    });
     // Modo desafio: a partir de 03/08, a Semana do Protocolo sobe pra logo abaixo do topo
     if(agora >= new Date('2026-08-03T00:00:00-03:00')){
       var aulasSec = document.getElementById('aulas');
