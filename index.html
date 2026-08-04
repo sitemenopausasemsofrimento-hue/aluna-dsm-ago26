@@ -45,7 +45,10 @@
   .contagem .pulso{width:10px;height:10px;background:#FFD34D;border-radius:50%;animation:pulsar 1.2s ease-in-out infinite;flex:0 0 auto}
   .contagem b{color:#FFD34D;font-weight:700}
   @keyframes pulsar{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.55}}
-  @media(max-width:600px){.contagem{font-size:12px;letter-spacing:1.2px;padding:10px 12px}}
+  @media(max-width:600px){
+    .contagem{font-size:12px;letter-spacing:1.2px;padding:10px 12px}
+    .row-materiais .btn{flex:1 1 45%;min-height:44px;font-size:12px;display:flex;align-items:center;justify-content:center}
+  }
 
   /* HERO — faixa compacta com foto */
   .hero{background:var(--verde-escuro);color:var(--branco);padding:44px 22px 40px;position:relative;overflow:hidden}
@@ -122,7 +125,8 @@
   .card-aula .btn{padding:14px 10px;font-size:13px;margin-top:auto}
   .btn-material{background:transparent;border:2px solid var(--verde-escuro);color:var(--verde-escuro)}
   .btn-material:hover{background:var(--verde-escuro);color:#fff;transform:translateY(-2px)}
-  .card-aula .btn-material{margin-top:10px}
+  .row-materiais{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .row-materiais .btn{flex:1 1 40%;margin-top:0;padding:11px 6px;font-size:11.5px;letter-spacing:1px}
   .status-lock{display:none;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#D64545;font-weight:700;text-align:center}
   .card-aula.bloqueada .thumb-link{pointer-events:none}
   .card-aula.bloqueada .thumb-link img{filter:grayscale(1) brightness(.75)}
@@ -209,7 +213,11 @@
           <div class="card-aula-titulo">Aula 01: O Metabolismo Travado <span class="aula-status">— Aula Liberada</span></div>
           <span class="status-lock">Libera dia 03/08 às 7h</span>
           <a class="btn btn-laranja btn-aula" href="https://youtube.com/live/i_dH6RMGCfk?feature=share" target="_blank" rel="noopener">Assistir a Aula</a>
-          <a class="btn btn-material" href="material-aula-01-horarios-jejum.pdf" download data-libera-material="2026-08-03T07:00:00-03:00">Baixar Materiais da Aula</a>
+          <div class="row-materiais">
+            <a class="btn btn-material" href="material-aula-01-horarios-jejum.pdf" download data-libera-material="2026-08-03T07:00:00-03:00">Baixar Materiais da Aula</a>
+            <button class="btn btn-material btn-audio" data-audio="au-a1" data-libera-material="2026-08-03T07:00:00-03:00">Ouça o Áudio da Aula</button>
+          </div>
+          <audio id="au-a1" preload="none" src="audio-aula-01.mp3" style="display:none;width:100%;height:40px;margin-top:8px"></audio>
         </div>
       </div>
 
@@ -223,7 +231,13 @@
           <div class="card-aula-titulo">Aula 02: O Reequilíbrio Hormonal <span class="aula-status">— Aula Liberada</span></div>
           <span class="status-lock">Libera dia 04/08 às 7h</span>
           <a class="btn btn-laranja btn-aula" href="https://youtube.com/live/BvNLOfpoPRQ?feature=share" target="_blank" rel="noopener">Assistir a Aula</a>
-          <a class="btn btn-material" href="material-aula-02-alimentos-hormonios.pdf" download data-libera-material="2026-08-04T07:00:00-03:00">Baixar Materiais da Aula</a>
+          <div class="row-materiais">
+            <a class="btn btn-material" href="material-aula-02-alimentos-hormonios.pdf" download data-libera-material="2026-08-04T07:00:00-03:00">Baixar Materiais da Aula</a>
+            <button class="btn btn-material btn-audio" data-audio="au-a2a" data-libera-material="2026-08-04T08:00:00-03:00">Ouça o Áudio da Manhã</button>
+            <button class="btn btn-material btn-audio" data-audio="au-a2b" data-libera-material="2026-08-04T18:00:00-03:00">Ouça o Áudio da Noite</button>
+          </div>
+          <audio id="au-a2a" preload="none" src="audio-aula-02-1.mp3" style="display:none;width:100%;height:40px;margin-top:8px"></audio>
+          <audio id="au-a2b" preload="none" src="audio-aula-02-2.mp3" style="display:none;width:100%;height:40px;margin-top:8px"></audio>
         </div>
       </div>
 
@@ -237,6 +251,12 @@
           <div class="card-aula-titulo">Aula 03: Os Sinais do Seu Corpo <span class="aula-status">— Aula Liberada</span></div>
           <span class="status-lock">Libera dia 05/08 às 7h</span>
           <a class="btn btn-laranja btn-aula" href="https://youtube.com/live/7uHz5hCeMLc?feature=share" target="_blank" rel="noopener">Assistir a Aula</a>
+          <div class="row-materiais">
+            <button class="btn btn-material btn-audio" data-audio="au-a3a" data-libera-material="2026-08-05T08:00:00-03:00">Ouça o Áudio da Manhã</button>
+            <button class="btn btn-material btn-audio" data-audio="au-a3b" data-libera-material="2026-08-05T18:00:00-03:00">Ouça o Áudio da Noite</button>
+          </div>
+          <audio id="au-a3a" preload="none" src="audio-aula-03-1.mp3" style="display:none;width:100%;height:40px;margin-top:8px"></audio>
+          <audio id="au-a3b" preload="none" src="audio-aula-03-2.mp3" style="display:none;width:100%;height:40px;margin-top:8px"></audio>
         </div>
       </div>
 
@@ -250,6 +270,12 @@
           <div class="card-aula-titulo">Aula 04: Adeus, Efeito Sanfona <span class="aula-status">— Aula Liberada</span></div>
           <span class="status-lock">Libera dia 06/08 às 7h</span>
           <a class="btn btn-laranja btn-aula" href="https://youtube.com/live/20F6N-6edA8?feature=share" target="_blank" rel="noopener">Assistir a Aula</a>
+          <div class="row-materiais">
+            <button class="btn btn-material btn-audio" data-audio="au-a4a" data-libera-material="2026-08-06T08:00:00-03:00">Ouça o Áudio da Manhã</button>
+            <button class="btn btn-material btn-audio" data-audio="au-a4b" data-libera-material="2026-08-06T18:00:00-03:00">Ouça o Áudio da Noite</button>
+          </div>
+          <audio id="au-a4a" preload="none" src="audio-aula-04-1.mp3" style="display:none;width:100%;height:40px;margin-top:8px"></audio>
+          <audio id="au-a4b" preload="none" src="audio-aula-04-2.mp3" style="display:none;width:100%;height:40px;margin-top:8px"></audio>
         </div>
       </div>
 
@@ -308,11 +334,6 @@
         <div class="audio-titulo"><span class="audio-num">5</span>Sono e calorões</div>
         <span class="status-lock">Libera sábado, 01/08, às 10h</span>
         <audio controls preload="none" src="audio-05-sono-caloroes.mp3"></audio>
-      </li>
-      <li data-libera="2026-08-02T10:00:00-03:00">
-        <div class="audio-titulo"><span class="audio-num">6</span>Véspera: como se preparar para o dia 1</div>
-        <span class="status-lock">Libera domingo, 02/08, às 10h</span>
-        <audio controls preload="none" src="audio-06-vespera.mp3"></audio>
       </li>
     </ul>
   </div>
@@ -413,9 +434,19 @@
       atualizaContagem();
       setInterval(atualizaContagem, 30000);
     }
-    // Materiais das aulas: aparecem só a partir das 7h do dia da aula
+    // Materiais e áudios das aulas: aparecem só a partir das 7h do dia da aula
     document.querySelectorAll('.btn-material[data-libera-material]').forEach(function(btn){
       if(agora < new Date(btn.getAttribute('data-libera-material'))){ btn.style.display = 'none'; }
+    });
+    // Botão de ouvir áudio: mostra o player e toca
+    document.querySelectorAll('.btn-audio').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var au = document.getElementById(btn.getAttribute('data-audio'));
+        if(!au) return;
+        au.style.display = 'block';
+        au.setAttribute('controls','');
+        au.play();
+      });
     });
   })();
 </script>
